@@ -1,0 +1,12 @@
+.footerBar {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.75rem;
+    background-color: #fff;
+    // A subtle top box shadow
+    box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    width: 100vw;
+}
