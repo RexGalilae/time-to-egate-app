@@ -1,50 +1,58 @@
-.appContainer {
+.pageContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     flex-direction: column;
-    padding: 1rem;
+    align-items: center;
+    padding: 2rem 1.875rem 9rem 1.875rem;
     background-color: $background-color;
+    overflow-y: scroll;
 
     .stickerContainer {
+        height: 13rem;
+        margin-block: 1.75rem;
+    }
+
+    form {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        .sticker {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            width: 9rem;
-            height: 9rem;
-            border-radius: 100%;
-            object-fit: cover;
-        }
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 30rem;
     }
 
     .title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
+        font-size: 1.375rem;
+        font-weight: 600;
     }
+}
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh; // Full viewport height
+    background-color: $color-dark; // Dark translucent background
+    background-image: url("/assets/loading-bg.svg");
+    padding-inline: 2.5rem;
 
-    .buttonContainer {
+    .loadingText {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
+        flex-direction: column;
+        gap: 0.875rem;
+        text-align: center;
+
+        .title {
+            color: $background-color;
+            font-size: 1.875rem;
+        }
+
+        .description {
+            color: $background-color;
+            font-size: 1.125rem;
+        }
+    }
+
+    .stickerContainer {
+        width: 18rem;
     }
 }
