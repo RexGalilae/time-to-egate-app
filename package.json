@@ -1,15 +1,17 @@
 {
+	"homepage": "https://RexGalilae.github.io/time-to-egate-app",
 	"name": "time-to-egate",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"prebuild": "python3 scripts/prepare.py",
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",
-		"start:server": "node --loader ts-node/esm server.ts"
+		"start:server": "node --loader ts-node/esm server.ts",
+		"predeploy": "yarn build",
+		"deploy": "gh-pages -d build"
 	},
 	"dependencies": {
 		"@mantine/core": "^7.12.2",
@@ -20,10 +22,11 @@
 		"@types/tesseract.js": "^2.0.0",
 		"csv-parser": "^3.0.0",
 		"dayjs": "^1.11.13",
+		"gh-pages": "^6.1.1",
 		"lottie-react": "^2.4.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"react-router-dom": "^6.26.2",
+		"react-router-dom": "^6.0.0",
 		"react-transition-group": "^4.4.5",
 		"tesseract.js": "^5.1.1",
 		"vite-plugin-svgr": "^4.2.0"
@@ -34,6 +37,7 @@
 		"@types/node": "^22.5.4",
 		"@types/react": "^18.3.5",
 		"@types/react-dom": "^18.3.0",
+		"@types/react-router-dom": "^5.3.3",
 		"@vitejs/plugin-react": "^4.3.1",
 		"eslint": "^9.9.0",
 		"eslint-plugin-css-modules": "^2.12.0",

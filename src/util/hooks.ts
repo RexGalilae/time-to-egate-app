@@ -15,7 +15,6 @@ export function useQueryNavigate<IQuery extends Record<string, string>>() {
 				searchParams.set(key, query[key]);
 			});
 		}
-
 		navigate(path + '?' + searchParams.toString());
 	};
 
