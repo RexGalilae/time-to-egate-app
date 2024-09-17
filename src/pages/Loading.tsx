@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sticker from '../components/Sticker/Sticker';
-import { useNavigate } from 'react-router-dom';
+import { PAGE_ROUTES } from '../constants';
+import { useQueryNavigate } from '../util/hooks';
+import { QueryState } from '../interfaces';
 
 const Loading: React.FC = () => {
-	const navigation = useNavigate();
+	const { navigateWithQuery } = useQueryNavigate<Partial<QueryState>>();
 
-	setTimeout(() => {
-		navigation('/');
-	}, 3000);
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			navigateWithQuery(PAGE_ROUTES.SCHEDULES);
+		}, 3000);
+
+		return () => clearTimeout(timeout); // Clear the timeout when the component unmounts
+	}, []); // Empty dependency array to run the effect only once
 
 	return (
 		<div className="loadingContainer">

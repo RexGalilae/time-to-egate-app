@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    justify-content: start;
+    position: relative;
+
+    .title {
+        align-self: center;
+        font-size: 1.375rem;
+        font-weight: 600;
+        color: $color-dark;
+        margin-inline: auto;
+    }
+}
+
+.backButton {
+    // position: absolute;
+    // inset-inline-start: 0;
+    // inset-block-start: 0;
+
+    border: 0;
+    outline: none;
+    cursor: pointer;
+
+    border-radius: 999px;
+    background-color: $color-input-bg;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 3rem;
+    height: 3rem;
+
+    &.floating {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: 0;
+        margin-inline-start: 1rem;
+        margin-block-start: 1rem;
+    }
+
+    &:hover {
+        background-color: $color-lighter;
+    }
+
+    .icon {
+        height: 1rem;
+        fill: $color-dark;
+    }
+}

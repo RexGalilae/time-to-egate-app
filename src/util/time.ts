@@ -43,3 +43,23 @@ export const arrivalIsWithinNMinutesOf = (
 		);
 	};
 };
+
+/**
+ * Converts time in 24-hour format to 12-hour format.
+ *
+ * @param {string} time - The time to convert to 12-hour format.
+ * @returns {string} - The time in 12-hour format.
+ *
+ * @example
+ * const time = '13:00';
+ * const twelveHourTime = convertToTwelveHourFormat(time);
+ * console.log(twelveHourTime);
+ * // Output: '1:00 PM'
+ */
+export const convertToTwelveHourFormat = (time: string): string => {
+	const [hours, minutes] = time.split(':');
+	const hour = parseInt(hours) % 12 || 12;
+	const period = parseInt(hours) < 12 ? 'AM' : 'PM';
+
+	return `${hour}:${minutes} ${period}`;
+};

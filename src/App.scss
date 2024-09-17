@@ -5,10 +5,21 @@
     padding: 2rem 1.875rem 9rem 1.875rem;
     background-color: $background-color;
     overflow-y: scroll;
+    height: 100vh; // Full viewport height
+
+    h2,
+    h3 {
+        font-weight: 600;
+    }
+
+    > * {
+        width: 100%;
+    }
 
     .stickerContainer {
         height: 13rem;
         margin-block: 1.75rem;
+        object-fit: contain;
     }
 
     form {
@@ -49,6 +60,7 @@
         .description {
             color: $background-color;
             font-size: 1.125rem;
+            padding-inline: 1.25rem;
         }
     }
 

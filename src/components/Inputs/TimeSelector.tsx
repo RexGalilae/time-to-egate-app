@@ -12,7 +12,7 @@ interface TimeSelectorProps {
 
 const TimeSelector: React.FC<TimeSelectorProps> = ({
 	label,
-	defaultTime,
+	defaultTime = '1:15',
 	onChange,
 	onSubmit,
 	error,

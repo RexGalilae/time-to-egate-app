@@ -1,0 +1,38 @@
+.task {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .taskTitle {
+        font-size: 1.25rem;
+        font-weight: 600;
+        font-size: 1.125rem;
+    }
+
+    .taskDetails {
+        display: flex;
+        gap: 4rem;
+        justify-content: start;
+        align-items: center;
+
+        .taskStickerContainer {
+            width: 10.625rem;
+        }
+
+        .taskTime {
+            font-size: 1.75rem;
+            font-weight: 300;
+        }
+    }
+}
+
+.taskGroup {
+    display: flex;
+    flex-direction: column;
+
+    margin-block-start: 1.625rem;
+
+    .task {
+        margin-block-start: 1.25rem;
+    }
+}

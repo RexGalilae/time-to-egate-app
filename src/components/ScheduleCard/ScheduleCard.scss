@@ -1,0 +1,132 @@
+.card {
+    padding: 1.5rem;
+    border-radius: 1.75rem;
+    transition: all 0.3s ease-in-out;
+    background-color: $app-background;
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-0.25rem);
+        box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.25);
+    }
+
+    .contentContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+
+        .side {
+            display: flex;
+            flex-direction: column;
+
+            .time {
+                font-size: 1.75rem;
+                font-weight: 300;
+                color: $color-dark;
+            }
+
+            .delay {
+                font-size: 0.625rem;
+                font-weight: bold;
+
+                &.danger {
+                    color: $color-danger;
+                }
+
+                &.safe {
+                    color: $color-safe;
+                }
+            }
+
+            .label {
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: $color-subtext;
+            }
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .icon {
+                font-size: 1.5rem;
+                filter: invert(0);
+            }
+
+            .duration {
+                font-size: 0.625rem;
+                font-weight: 400;
+                color: $color-dark;
+            }
+        }
+    }
+
+    &.selected {
+        background-color: $color-dark;
+
+        .contentContainer {
+            .side {
+                .time {
+                    color: $color-lighter;
+                }
+
+                .label {
+                    color: $color-light;
+                }
+            }
+
+            .center {
+                .icon {
+                    color: $color-lighter;
+                    filter: invert(1);
+                }
+
+                .duration {
+                    color: $color-lighter;
+                }
+            }
+        }
+    }
+}
+
+.scheduleCardGroup {
+    width: 100%;
+    & > div {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+    }
+}
+
+.topFade {
+    &-enter {
+        opacity: 0;
+        transform: translateY(-1rem);
+    }
+
+    &-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+            opacity 300ms,
+            transform 300ms;
+    }
+
+    &-exit {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    &-exit-active {
+        opacity: 0;
+        transform: translateY(-1rem);
+        transition:
+            opacity 300ms,
+            transform 300ms;
+    }
+}
