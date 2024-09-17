@@ -1,0 +1,5 @@
+export const PLEEP_PARAMETERS_IN_HOURS = {
+	SHOWER: 1.25,
+	NAP: 1.5,
+	PLEEP: 6,
+};
