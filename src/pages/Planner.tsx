@@ -49,6 +49,21 @@ const Planner: React.FC = () => {
 		window.history.back();
 	};
 
+	const handleSetAlarmClicked = () => {
+		// Check if the user is on an Android device
+		const isAndroid = navigator.userAgent.toLowerCase().includes('android');
+
+		if (isAndroid && plannedTasks) {
+			const alarmHour = plannedTasks[2].time.split(':')[0];
+			const alarmMinute = plannedTasks[2].time.split(':')[1];
+
+			const intentString = `intent://com.android.deskclock/alarm#Intent;scheme=android-app;package=com.android.deskclock;action=android.intent.action.SET_ALARM;S.hour=${alarmHour};S.minutes=${alarmMinute};end`;
+
+			window.location.href = intentString;
+		} else {
+			navigateWithQuery(PAGE_ROUTES.OHNJO);
+		}
+	};
 	return (
 		<div className="pageContainer">
 			<Header onBackButtonClicked={handleGoBack} />
@@ -61,12 +76,7 @@ const Planner: React.FC = () => {
 				/>
 			)}
 			{plannedTasks && <TaskGroup tasks={plannedTasks} />}
-			<FooterBar
-				label="Set an Alarm"
-				onClick={() => {
-					navigateWithQuery(PAGE_ROUTES.OHNJO);
-				}}
-			/>
+			<FooterBar label="Set an Alarm" onClick={handleSetAlarmClicked} />
 		</div>
 	);
 };
