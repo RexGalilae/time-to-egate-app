@@ -51,7 +51,9 @@ const Planner: React.FC = () => {
 
 	const handleSetAlarmClicked = () => {
 		// Check if the user is on a Samsung device
-		const isSamsung = navigator.userAgent.includes('Samsung');
+		const isSamsung = navigator.userAgent.match(
+			/SAMSUNG|SGH-[I|N|T]|GT-[I|P|N]|SM-[N|P|T|Z|G]|SHV-E|SCH-[I|J|R|S]|SPH-L/i,
+		);
 
 		if (isSamsung && plannedTasks) {
 			const alarmHour = plannedTasks[2].time.split(':')[0];
