@@ -50,14 +50,14 @@ const Planner: React.FC = () => {
 	};
 
 	const handleSetAlarmClicked = () => {
-		// Check if the user is on an Android device
-		const isAndroid = navigator.userAgent.toLowerCase().includes('android');
+		// Check if the user is on a Samsung device
+		const isSamsung = navigator.userAgent.includes('Samsung');
 
-		if (isAndroid && plannedTasks) {
+		if (isSamsung && plannedTasks) {
 			const alarmHour = plannedTasks[2].time.split(':')[0];
 			const alarmMinute = plannedTasks[2].time.split(':')[1];
 
-			const intentString = `intent://com.android.deskclock/alarm#Intent;scheme=android-app;package=com.android.deskclock;action=android.intent.action.SET_ALARM;S.hour=${alarmHour};S.minutes=${alarmMinute};end`;
+			const intentString = `intent://com.sec.android.app.clockpackage/alarm#Intent;scheme=android-app;package=com.sec.android.app.clockpackage;action=android.intent.action.SET_ALARM;S.hour=${alarmHour};S.minutes=${alarmMinute};end`;
 
 			window.location.href = intentString;
 		} else {
