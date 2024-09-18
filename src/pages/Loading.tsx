@@ -1,11 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Sticker from '../components/Sticker/Sticker';
 import { PAGE_ROUTES } from '../constants';
 import { useQueryNavigate } from '../util/hooks';
 import { QueryState } from '../interfaces';
 
+const YodaSticker = () => (
+	<Sticker
+		className="stickerContainer"
+		animationPath={`/time-to-egate-app/assets/thinking-yoda.json`}
+	/>
+);
+
+const UtyaSticker = () => (
+	<Sticker
+		className="stickerContainer"
+		animationPath={`/time-to-egate-app/assets/thinking-utya.json`}
+	/>
+);
+
 const Loading: React.FC = () => {
 	const { navigateWithQuery } = useQueryNavigate<Partial<QueryState>>();
+
+	const fiftyFifty = useMemo(() => Math.random() < 0.5, []);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -25,10 +41,7 @@ const Loading: React.FC = () => {
 				</div>
 			</div>
 
-			<Sticker
-				className="stickerContainer"
-				animationPath="/time-to-egate-app/assets/thinking-utya.json"
-			/>
+			{fiftyFifty ? <YodaSticker /> : <UtyaSticker />}
 		</div>
 	);
 };
