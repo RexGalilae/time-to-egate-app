@@ -13,8 +13,11 @@ import Planner from './pages/Planner';
 import OhNjo from './pages/OhNjo';
 
 const AppRoutes: React.FC = () => {
+	const basename =
+		process.env.NODE_ENV === 'production' ? '/time-to-egate-app' : '';
+
 	return (
-		<Router>
+		<Router {...{ basename }}>
 			<TransitionWrapper>
 				<Routes>
 					<Route path={PAGE_ROUTES.HOME} element={<Home />} />
