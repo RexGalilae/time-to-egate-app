@@ -2,8 +2,8 @@ const CACHE_NAME = 'your-app-cache-v1';
 const urlsToCache = [
 	'/',
 	'/index.html',
-	'/assets/icons/icon-192x192.png',
-	'/assets/icons/icon-512x512.png',
+	'/time-to-egate-app/assets/icons/icon-192x192.png',
+	'/time-to-egate-app/assets/icons/icon-512x512.png',
 	// Add other assets you want to cache
 ];
 
