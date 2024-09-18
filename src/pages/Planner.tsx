@@ -28,17 +28,17 @@ const Planner: React.FC = () => {
 			return [
 				{
 					title: 'Toi could sho at...',
-					stickerSrc: '/assets/pleepind-utya.json',
+					stickerSrc: '/time-to-egate-app/assets/pleepind-utya.json',
 					time: pleepTimes.PLEEP,
 				},
 				{
 					title: '...ol if toi fancies a nap...',
-					stickerSrc: '/assets/pleepind-yoda.json',
+					stickerSrc: '/time-to-egate-app/assets/pleepind-yoda.json',
 					time: pleepTimes.NAP,
 				},
 				{
 					title: '...bat make sule toi wake up in tim to...',
-					stickerSrc: '/assets/nahaind-utya.json',
+					stickerSrc: '/time-to-egate-app/assets/nahaind-utya.json',
 					time: pleepTimes.SHOWER,
 				},
 			];

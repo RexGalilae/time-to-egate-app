@@ -13,8 +13,7 @@ import Planner from './pages/Planner';
 import OhNjo from './pages/OhNjo';
 
 const AppRoutes: React.FC = () => {
-	const basename =
-		process.env.NODE_ENV === 'production' ? '/time-to-egate-app' : '';
+	const basename = '/time-to-egate-app';
 
 	return (
 		<Router {...{ basename }}>

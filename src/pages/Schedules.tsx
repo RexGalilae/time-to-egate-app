@@ -59,7 +59,7 @@ const Schedules: React.FC = () => {
 			<Header onBackButtonClicked={handleBackButtonClicked} />
 			<img
 				className="stickerContainer"
-				src="/assets/here-you-go.webp"
+				src="/time-to-egate-app/assets/here-you-go.webp"
 				alt="Here you go!"
 			/>
 			<ScheduleCardGroup

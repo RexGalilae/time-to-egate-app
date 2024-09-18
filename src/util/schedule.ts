@@ -2,7 +2,7 @@ import { PLEEP_PARAMETERS_IN_HOURS, PleepParameterKey } from '../constants';
 import { IPleepTimes, Schedule, ScheduleWithDelay } from '../interfaces';
 import { timeToMinutes, arrivalIsWithinNMinutesOf } from './time';
 
-const csvPath = '/public/assets/schedule.csv';
+const csvPath = '/time-to-egate-app/assets/schedule.csv';
 
 /**
  * A function that reads the schedule.csv file, accepts a time and returns data where EGHQ is +- 30 minutes from the time in the form of an array of objects containing the derpature time, arrival time, and the duration.

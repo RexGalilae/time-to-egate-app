@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
 			<div className="title">Ey when my bus gonna arriv?</div>
 			<Sticker
 				className="stickerContainer"
-				animationPath="/assets/clock-yoda.json"
+				animationPath="/time-to-egate-app/assets/clock-yoda.json"
 			/>
 			<form className="" onSubmit={form.onSubmit(handleSubmit)}>
 				<Dropdown

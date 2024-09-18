@@ -27,7 +27,7 @@ const Loading: React.FC = () => {
 
 			<Sticker
 				className="stickerContainer"
-				animationPath="/assets/thinking-utya.json"
+				animationPath="/time-to-egate-app/assets/thinking-utya.json"
 			/>
 		</div>
 	);

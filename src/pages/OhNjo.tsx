@@ -25,7 +25,7 @@ const OhNjo: React.FC = () => {
 				</div>
 
 				<img
-					src="/assets/wide-minna-of-doom.png"
+					src="/time-to-egate-app/assets/wide-minna-of-doom.png"
 					alt="Wide minna of doom!"
 				/>
 				<div className="description">
@@ -34,7 +34,7 @@ const OhNjo: React.FC = () => {
 			</div>
 			<audio
 				ref={audioRef}
-				src="/assets/oh-my-god-bruh-oh-hell-nah.mp3"
+				src="/time-to-egate-app/assets/oh-my-god-bruh-oh-hell-nah.mp3"
 				autoPlay
 			/>
 		</div>
