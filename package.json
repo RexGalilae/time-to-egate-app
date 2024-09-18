@@ -1,5 +1,5 @@
 {
-	"homepage": "https://RexGalilae.github.io/time-to-egate-app",
+	"homepage": "https://rexgalilae.github.io/time-to-egate-app",
 	"name": "time-to-egate",
 	"private": true,
 	"version": "0.0.0",
@@ -11,7 +11,7 @@
 		"preview": "vite preview",
 		"start:server": "node --loader ts-node/esm server.ts",
 		"predeploy": "yarn build",
-		"deploy": "gh-pages -d build"
+		"deploy": "gh-pages -d dist"
 	},
 	"dependencies": {
 		"@mantine/core": "^7.12.2",
