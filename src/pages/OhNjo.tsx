@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import FooterBar from '../components/FooterBar/FooterBar';
-import Header, { FloatingBackButton } from '../components/Header/Header';
+import { FloatingBackButton } from '../components/Header/Header';
 
 const OhNjo: React.FC = () => {
 	const audioRef = useRef<HTMLAudioElement>(null);
@@ -25,6 +24,7 @@ const OhNjo: React.FC = () => {
 				</div>
 
 				<img
+					className="ultrawide"
 					src="/time-to-egate-app/assets/wide-minna-of-doom.png"
 					alt="Wide minna of doom!"
 				/>

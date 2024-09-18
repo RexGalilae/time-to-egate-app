@@ -1,7 +1,7 @@
 {
-	"name": "Your App Name",
-	"short_name": "AppName",
-	"description": "A description of your app",
+	"name": "Toi Planner",
+	"short_name": "Planner",
+	"description": "Eet help my toi plan hel day around the eGate fol hel flights",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#ffffff",

@@ -46,6 +46,10 @@
     background-image: url("/time-to-egate-app/assets/loading-bg.svg");
     padding-inline: 2.5rem;
 
+    .ultrawide {
+        width: 100vw;
+    }
+
     .loadingText {
         display: flex;
         flex-direction: column;
