@@ -27,7 +27,7 @@ const AppRoutes: React.FC = () => {
 					/>
 					<Route path={PAGE_ROUTES.PLANNER} element={<Planner />} />
 					<Route path={PAGE_ROUTES.OHNJO} element={<OhNjo />} />
-					<Route path="*" element={<div>404 Not Found</div>} />
+					<Route path="*" element={<Home />} />
 				</Routes>
 			</TransitionWrapper>
 		</Router>
