@@ -69,6 +69,8 @@ const HomePage: React.FC = () => {
 					error={form.errors.to}
 				/>
 
+				<hr />
+
 				<TimeSelector
 					label="eGate Time"
 					defaultTime={form.values.time}

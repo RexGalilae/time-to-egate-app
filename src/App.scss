@@ -36,6 +36,14 @@
     }
 }
 
+hr {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background-color: $color-separator;
+    margin-block: 0;
+}
+
 .loadingContainer {
     display: flex;
     flex-direction: column;
