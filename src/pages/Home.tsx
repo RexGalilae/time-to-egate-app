@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
 		validate: {
 			from: (value) => (value ? null : 'From is required'),
 			to: (value) => (value ? null : 'To is required'),
-			time: (value) => (value ? null : 'Time is required'),
+			time: (value) => (value || defaultTime ? null : 'Time is required'),
 		},
 		onValuesChange: (values) => {
 			const computedToValue =
@@ -64,11 +64,11 @@ const HomePage: React.FC = () => {
 				const currTime = new Date().toTimeString().slice(0, 5);
 				// Set time to current time if the user selects Emirates HQ
 				setDefaultTime(currTime);
-				form.setFieldValue('time', currTime);
+				// form.setFieldValue('time', currTime);
 			} else {
 				// Reset time to the query if the user selects Garhoud Tower 2
 				setDefaultTime(query.targetTime ?? '');
-				form.setFieldValue('time', query.targetTime ?? '');
+				// form.setFieldValue('time', query.targetTime ?? '');
 			}
 		},
 	});
@@ -78,7 +78,7 @@ const HomePage: React.FC = () => {
 		navigateWithQuery(PAGE_ROUTES.LOADING, {
 			from: locationOptionToScheduleKey[values.from],
 			to: locationOptionToScheduleKey[values.to],
-			targetTime: values.time,
+			targetTime: defaultTime,
 		});
 	};
 
@@ -126,7 +126,7 @@ const HomePage: React.FC = () => {
 				<TimeSelector
 					label={timeInputLabel}
 					defaultTime={defaultTime}
-					{...form.getInputProps('time')}
+					onChange={(time) => setDefaultTime(time)}
 					onSubmit={form.onSubmit(handleSubmit)}
 					error={form.errors.time}
 				/>
