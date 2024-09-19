@@ -4,12 +4,19 @@ import Sticker from '../components/Sticker/Sticker';
 import { useForm } from '@mantine/form';
 import Dropdown from '../components/Inputs/Dropdown';
 import TimeSelector from '../components/Inputs/TimeSelector';
-import { PAGE_ROUTES } from '../constants';
+import {
+	locationOptionToScheduleKey,
+	PAGE_ROUTES,
+	LocationKey,
+	LocationOption,
+} from '../constants';
 
 import { useQueryNavigate } from '../util/hooks';
 import { QueryState } from '../interfaces';
 
 import { fetchFunFact } from '../util/funFact';
+
+import { getKeyByValue } from '../util/helpers';
 
 // interface HomePageProps {}
 
@@ -27,25 +34,61 @@ const HomePage: React.FC = () => {
 		[query.targetTime],
 	);
 
+	const presetFromLocation = useMemo<LocationOption>(
+		() =>
+			(getKeyByValue<LocationKey>(
+				locationOptionToScheduleKey,
+				query.from as LocationKey,
+			) as LocationOption) ?? 'Garhoud Tower 2',
+		[query.from],
+	);
+
 	const form = useForm({
 		initialValues: {
-			from: 'Garhoud Tower 2',
-			to: 'Emirates HQ',
+			from: presetFromLocation,
+			to: (presetFromLocation === 'Garhoud Tower 2'
+				? 'Emirates HQ'
+				: 'Garhoud Tower 2') as LocationOption,
 			time: targetTimeFromQuery,
 		},
 		validate: {
-			from: (value) => (value ? null : 'Select 1 is required'),
-			to: (value) => (value ? null : 'Select 2 is required'),
+			from: (value) => (value ? null : 'From is required'),
+			to: (value) => (value ? null : 'To is required'),
 			time: (value) => (value ? null : 'Time is required'),
+		},
+		onValuesChange: (values) => {
+			const computedToValue =
+				values.from === 'Garhoud Tower 2'
+					? 'Emirates HQ'
+					: 'Garhoud Tower 2';
+
+			form.setFieldValue('to', computedToValue);
 		},
 	});
 
 	const handleSubmit = (values: typeof form.values) => {
 		console.log(values);
 		navigateWithQuery(PAGE_ROUTES.LOADING, {
+			from: locationOptionToScheduleKey[values.from],
 			targetTime: values.time,
 		});
 	};
+
+	// const destinationOptions = useMemo(
+	// 	() =>
+	// 		form.values.from === 'Garhoud Tower 2'
+	// 			? ['Emirates HQ']
+	// 			: ['Garhoud Tower 2'],
+	// 	[form.values.from],
+	// );
+
+	const timeInputLabel = useMemo(
+		() =>
+			form.values.from === 'Garhoud Tower 2'
+				? 'eGate opens at'
+				: 'Leave by',
+		[form.values.from],
+	);
 
 	return (
 		<div className="pageContainer">
@@ -57,22 +100,23 @@ const HomePage: React.FC = () => {
 			<form className="" onSubmit={form.onSubmit(handleSubmit)}>
 				<Dropdown
 					label="From"
-					options={['Garhoud Tower 2']}
+					options={['Garhoud Tower 2', 'Emirates HQ']}
 					{...form.getInputProps('from')}
 					error={form.errors.from}
 				/>
 
 				<Dropdown
 					label="To"
-					options={['Emirates HQ']}
+					options={['Emirates HQ', 'Garhoud Tower 2']}
 					{...form.getInputProps('to')}
 					error={form.errors.to}
+					disabled
 				/>
 
 				<hr />
 
 				<TimeSelector
-					label="eGate Time"
+					label={timeInputLabel}
 					defaultTime={form.values.time}
 					{...form.getInputProps('time')}
 					onSubmit={form.onSubmit(handleSubmit)}

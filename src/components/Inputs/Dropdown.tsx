@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styles from './Inputs.module.scss';
 
 interface DropdownProps {
+	value?: string;
 	label: string;
 	options: string[];
+	disabled?: boolean;
 	onChange: (value: string) => void;
 	error: React.ReactNode;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
+	value,
 	label,
 	options,
+	disabled = false,
 	onChange,
 	error,
 }) => {
-	const [selected, setSelected] = useState<string>('');
-
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setSelected(e.target.value);
 		onChange(e.target.value);
 	};
 
@@ -27,8 +28,8 @@ const Dropdown: React.FC<DropdownProps> = ({
 			<label className={styles.label}>{label}</label>
 			<select
 				className={styles.input}
-				value={selected}
 				onChange={handleChange}
+				{...{ value, disabled }}
 			>
 				{options.map((option) => (
 					<option key={option} value={option}>
