@@ -34,6 +34,12 @@ export const getSchedule = async (
 	to = 'EGHQ',
 	departAt = false,
 ): Promise<ScheduleWithDelay[]> => {
+	if (from === 'EGHQ') {
+		from = 'EGHQ-O';
+	} else if (to === 'EGHQ-O') {
+		to = 'EGHQ';
+	}
+
 	const csvData = await fetchCsvData(from, to);
 
 	let data: ScheduleWithDelay[] = [];
