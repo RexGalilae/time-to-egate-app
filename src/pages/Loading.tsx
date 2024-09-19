@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
+import DOMPurify from 'dompurify';
+
 import Sticker from '../components/Sticker/Sticker';
-import { PAGE_ROUTES } from '../constants';
+
 import { useQueryNavigate } from '../util/hooks';
+
+import { PAGE_ROUTES } from '../constants';
 import { QueryState } from '../interfaces';
 
 const YodaSticker = () => (
@@ -25,7 +29,7 @@ const Loading: React.FC = () => {
 
 	// Retrieve the fun fact from the local storage
 	const funFact = useMemo(() => {
-		const fact = localStorage.getItem('funFact');
+		const fact = localStorage.getItem('funFact')?.replace(/\n/g, '<br />');
 		return fact || 'Toi labyuuu ❤️❤️❤️';
 	}, []);
 
@@ -49,8 +53,13 @@ const Loading: React.FC = () => {
 				{fiftyFifty ? <YodaSticker /> : <UtyaSticker />}
 				{funFact && (
 					<>
-						<div className="subtitle">Did ya kna?</div>
-						<div className="description">{funFact}</div>
+						<div className="subtitle">Da ya kna?</div>
+						<div
+							className="description"
+							dangerouslySetInnerHTML={{
+								__html: DOMPurify.sanitize(funFact),
+							}}
+						/>
 					</>
 				)}
 			</div>
