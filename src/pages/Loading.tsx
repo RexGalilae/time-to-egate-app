@@ -36,7 +36,7 @@ const Loading: React.FC = () => {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			navigateWithQuery(PAGE_ROUTES.SCHEDULES);
-		}, 5000);
+		}, 7000);
 
 		return () => clearTimeout(timeout); // Clear the timeout when the component unmounts
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +55,7 @@ const Loading: React.FC = () => {
 					<>
 						<div className="subtitle">Da ya kna?</div>
 						<div
-							className="description"
+							className="miniText"
 							dangerouslySetInnerHTML={{
 								__html: DOMPurify.sanitize(funFact),
 							}}
