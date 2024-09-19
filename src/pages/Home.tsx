@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
 		initialValues: {
 			from: 'Garhoud Tower 2',
 			to: 'Emirates HQ',
-			time: targetTimeFromQuery ?? '1:15',
+			time: targetTimeFromQuery,
 		},
 		validate: {
 			from: (value) => (value ? null : 'Select 1 is required'),
