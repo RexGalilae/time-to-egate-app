@@ -125,3 +125,37 @@ export const timeDifference = (from: string, to: string): number => {
 
 	return difference;
 };
+
+/**
+ * Subtract a number of minutes from a time string and return the result as a time string.
+ * It accounts for the cyclical nature of time.
+ *
+ * @param {string} time - The time to subtract from.
+ * @param {number} minutes - The number of minutes to subtract.
+ * @returns {string} - The resulting time.
+ *
+ * @example
+ * const time = '01:00';
+ * const result = subtractMinutes(time, 30);
+ * console.log(result);
+ * // Output: '0:30'
+ *
+ * @example
+ * const time = '00:30';
+ * const result = subtractMinutes(time, 60);
+ * console.log(result);
+ * // Output: '23:30'
+ */
+export const subtractMinutes = (time: string, minutes: number): string => {
+	const minutesInDay = 1440;
+	const timeInMinutes = timeToMinutes(time);
+	const resultInMinutes =
+		(timeInMinutes - minutes + minutesInDay) % minutesInDay;
+
+	const hours = Math.floor(resultInMinutes / 60);
+	const minutesString = Math.round(resultInMinutes % 60)
+		.toString()
+		.padStart(2, '0');
+
+	return `${hours}:${minutesString}`;
+};

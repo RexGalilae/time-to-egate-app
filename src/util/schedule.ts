@@ -1,3 +1,4 @@
+import { PleepParameterKey } from './../constants';
 import { PLEEP_PARAMETERS_IN_HOURS, PleepParameterKey } from '../constants';
 import { IPleepTimes, Schedule, ScheduleWithDelay } from '../interfaces';
 import {
@@ -5,6 +6,7 @@ import {
 	arrivalIsWithinNMinutesOf,
 	timeDifference,
 	departureIsWithinNMinutesOf,
+	subtractMinutes,
 } from './time';
 
 const csvPath = '/time-to-egate-app/assets/schedule.csv';
@@ -107,26 +109,17 @@ export const fetchCsvData = async (
  * // }
  */
 export const getPleepTimes = (departureTime: string): IPleepTimes => {
-	const departureMinutes = timeToMinutes(departureTime);
-
-	const pleepTimes = Object.keys(PLEEP_PARAMETERS_IN_HOURS).reduce(
-		(acc, key) => {
-			const minutes =
-				departureMinutes -
-				PLEEP_PARAMETERS_IN_HOURS[key as PleepParameterKey] * 60;
-			const hours = Math.floor(minutes / 60);
-			const flooredMinutes = Math.floor(minutes / 5) * 5;
-			const minutesString = (flooredMinutes % 60)
-				.toString()
-				.padStart(2, '0');
-
-			return {
-				...acc,
-				[key]: `${hours}:${minutesString}`,
-			};
-		},
-		{} as IPleepTimes,
-	);
+	const pleepTimes: IPleepTimes = {
+		SHOWER: subtractMinutes(
+			departureTime,
+			PLEEP_PARAMETERS_IN_HOURS.SHOWER * 60,
+		),
+		NAP: subtractMinutes(departureTime, PLEEP_PARAMETERS_IN_HOURS.NAP * 60),
+		PLEEP: subtractMinutes(
+			departureTime,
+			PLEEP_PARAMETERS_IN_HOURS.PLEEP * 60,
+		),
+	};
 
 	return pleepTimes;
 };
