@@ -1,6 +1,6 @@
 export const fetchFunFact = async () => {
 	const response = await fetch(
-		'https://uselessfacts.jsph.pl/api/v2/facts/random?language=en',
+		'https://cors-anywhere.herokuapp.com/https://uselessfacts.jsph.pl/api/v2/facts/random?language=en',
 		{
 			headers: {
 				'accept':
