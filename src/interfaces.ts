@@ -10,6 +10,8 @@ export interface ScheduleWithDelay extends Schedule {
 }
 
 export interface QueryState {
+	from: string;
+	to: string;
 	targetTime: string;
 	selectedScheduleData: string;
 }

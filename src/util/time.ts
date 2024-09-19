@@ -37,10 +37,16 @@ export const arrivalIsWithinNMinutesOf = (
 		const arrivalTime = timeToMinutes(schedule.arrival);
 		const searchTime = timeToMinutes(time);
 
-		return (
-			arrivalTime <= searchTime + intervalInMinutes &&
-			arrivalTime >= searchTime - intervalInMinutes
-		);
+		const minutesInDay = 1440;
+		const lowerBound =
+			(searchTime - intervalInMinutes + minutesInDay) % minutesInDay;
+		const upperBound = (searchTime + intervalInMinutes) % minutesInDay;
+
+		if (lowerBound <= upperBound) {
+			return arrivalTime >= lowerBound && arrivalTime <= upperBound;
+		} else {
+			return arrivalTime >= lowerBound || arrivalTime <= upperBound;
+		}
 	};
 };
 
@@ -62,4 +68,33 @@ export const convertToTwelveHourFormat = (time: string): string => {
 	const period = parseInt(hours) < 12 ? 'AM' : 'PM';
 
 	return `${hour}:${minutes} ${period}`;
+};
+
+/**
+ * A function that accepts two times and returns the difference in minutes.
+ * It accounts for the cyclical nature of time.
+ *
+ * @param {string} from - The first time.
+ * @param {string} to - The second time.
+ * @returns {number} - The difference in minutes.
+ *
+ * @example
+ * const from = '23:00';
+ * const to = '01:00';
+ * const difference = timeDifference(from, to);
+ * console.log(difference);
+ * // Output: 120
+ */
+export const timeDifference = (from: string, to: string): number => {
+	const minutes1 = timeToMinutes(from);
+	const minutes2 = timeToMinutes(to);
+
+	let difference = minutes2 - minutes1;
+	if (difference < -720) {
+		difference += 1440;
+	} else if (difference > 720) {
+		difference -= 1440;
+	}
+
+	return difference;
 };

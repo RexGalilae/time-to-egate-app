@@ -1,6 +1,10 @@
 import { PLEEP_PARAMETERS_IN_HOURS, PleepParameterKey } from '../constants';
 import { IPleepTimes, Schedule, ScheduleWithDelay } from '../interfaces';
-import { timeToMinutes, arrivalIsWithinNMinutesOf } from './time';
+import {
+	timeToMinutes,
+	arrivalIsWithinNMinutesOf,
+	timeDifference,
+} from './time';
 
 const csvPath = '/time-to-egate-app/assets/schedule.csv';
 
@@ -22,14 +26,21 @@ const csvPath = '/time-to-egate-app/assets/schedule.csv';
  */
 export const getSchedule = async (
 	time: string,
+	from = '3T-2',
+	to = 'EGHQ',
 ): Promise<ScheduleWithDelay[]> => {
-	const csvData = await fetchCsvData();
+	const csvData = await fetchCsvData(from, to);
 
 	// Filter bus schedules that are +- 30 minutes from the given time
-	const data = csvData.filter(arrivalIsWithinNMinutesOf(time)).map((row) => ({
-		...row,
-		delay: timeToMinutes(row.arrival) - timeToMinutes(time),
-	}));
+	const data = csvData.filter(arrivalIsWithinNMinutesOf(time)).map((row) => {
+		// Calculate the delay considering the cyclical nature of time
+		const delay = timeDifference(time, row.arrival);
+
+		return {
+			...row,
+			delay,
+		};
+	});
 
 	return data;
 };
@@ -39,23 +50,26 @@ export const getSchedule = async (
  *
  * @returns {Array<Array<string>>} - An array of arrays containing the data from the CSV file.
  */
-const fetchCsvData = async (): Promise<Schedule[]> => {
+export const fetchCsvData = async (
+	from = '3T-2',
+	to = 'EGHQ',
+): Promise<Schedule[]> => {
 	const csvData = await fetch(csvPath).then((response) => response.text());
 
 	// Parse the CSV data
 	const csvArray = csvData.split('\r').map((row) => row.split(','));
 
 	// Store the indices of the columns
-	const departureIndex = csvArray[0].indexOf('3T-2');
-	const arrivalIndex = csvArray[0].indexOf('EGHQ');
+	const departureIndex = csvArray[0].indexOf(from);
+	const arrivalIndex = csvArray[0].indexOf(to);
 
 	// Remove the first row (column headers)
 	csvArray.shift();
 
 	return csvArray.map((row, i) => ({
 		_id: i.toString(),
-		departure: row[departureIndex],
-		arrival: row[arrivalIndex],
+		departure: row[departureIndex].trim(),
+		arrival: row[arrivalIndex].trim(),
 		duration:
 			timeToMinutes(row[arrivalIndex]) -
 			timeToMinutes(row[departureIndex]),

@@ -24,4 +24,9 @@ export default defineConfig({
 	json: {
 		stringify: true, // Ensure JSON files are correctly parsed
 	},
+	test: {
+		globals: true,
+		environment: 'jsdom',
+		setupFiles: './src/tests/setup.ts',
+	},
 });
