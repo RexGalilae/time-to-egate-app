@@ -17,3 +17,27 @@ body {
         color: $color-dark;
     }
 }
+
+.fuck-off-gracefully {
+    animation: fadeShrink 300ms forwards;
+
+    @keyframes fadeShrink {
+        0% {
+            opacity: 1;
+            height: auto;
+        }
+        50% {
+            opacity: 0.5;
+            height: 50%;
+        }
+        99% {
+            opacity: 0.01;
+            height: 1%;
+        }
+        100% {
+            opacity: 0;
+            height: 0;
+            display: none;
+        }
+    }
+}
