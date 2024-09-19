@@ -23,12 +23,19 @@ const Loading: React.FC = () => {
 
 	const fiftyFifty = useMemo(() => Math.random() < 0.5, []);
 
+	// Retrieve the fun fact from the local storage
+	const funFact = useMemo(() => {
+		const fact = localStorage.getItem('funFact');
+		return fact || 'Toi labyuuu ❤️❤️❤️';
+	}, []);
+
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			navigateWithQuery(PAGE_ROUTES.SCHEDULES);
-		}, 3000);
+		}, 5000);
 
 		return () => clearTimeout(timeout); // Clear the timeout when the component unmounts
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []); // Empty dependency array to run the effect only once
 
 	return (
@@ -39,9 +46,14 @@ const Loading: React.FC = () => {
 					We doing hella analysis njow. Once eet halas, toi can figule
 					out when to wake up
 				</div>
+				{fiftyFifty ? <YodaSticker /> : <UtyaSticker />}
+				{funFact && (
+					<>
+						<div className="subtitle">Did ya kna?</div>
+						<div className="description">{funFact}</div>
+					</>
+				)}
 			</div>
-
-			{fiftyFifty ? <YodaSticker /> : <UtyaSticker />}
 		</div>
 	);
 };
