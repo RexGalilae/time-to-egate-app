@@ -56,13 +56,20 @@
         gap: 0.875rem;
         text-align: center;
 
-        .title {
+        & > * {
             color: $background-color;
+        }
+
+        .title {
             font-size: 1.875rem;
         }
 
+        .subtitle {
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
         .description {
-            color: $background-color;
             font-size: 1.125rem;
             padding-inline: 1.25rem;
         }

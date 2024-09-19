@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import FooterBar from '../components/FooterBar/FooterBar';
 import Sticker from '../components/Sticker/Sticker';
 import { useForm } from '@mantine/form';
@@ -9,10 +9,15 @@ import { PAGE_ROUTES } from '../constants';
 import { useQueryNavigate } from '../util/hooks';
 import { QueryState } from '../interfaces';
 
+import { fetchFunFact } from '../util/funFact';
+
 // interface HomePageProps {}
 
 const HomePage: React.FC = () => {
-	// const navigate = useNavigate();
+	// A useMemo that fetches a random fun fact from the internet
+	useEffect(() => {
+		fetchFunFact();
+	}, []);
 
 	const { query, navigateWithQuery } =
 		useQueryNavigate<Partial<QueryState>>();
