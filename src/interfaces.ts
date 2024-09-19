@@ -1,3 +1,5 @@
+import { LocationKey } from './constants';
+
 export interface Schedule {
 	_id: string;
 	departure: string;
@@ -10,10 +12,12 @@ export interface ScheduleWithDelay extends Schedule {
 }
 
 export interface QueryState {
-	from: string;
-	to: string;
+	from: LocationKey;
+	to: LocationKey;
 	targetTime: string;
 	selectedScheduleData: string;
+
+	[key: string]: string;
 }
 
 export interface IPleepTimes {

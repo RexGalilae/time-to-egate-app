@@ -7,14 +7,17 @@ export function useQueryNavigate<IQuery extends Record<string, string>>() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const navigateWithQuery = (path: string, query?: IQuery) => {
+	const navigateWithQuery = (path: string, query?: Partial<IQuery>) => {
 		const searchParams = new URLSearchParams(location.search);
 
 		if (query) {
 			Object.keys(query).forEach((key) => {
-				searchParams.set(key, query[key]);
+				if (query[key] !== undefined) {
+					searchParams.set(key, query[key] as string);
+				}
 			});
 		}
+
 		navigate(path + '?' + searchParams.toString());
 	};
 
@@ -28,5 +31,5 @@ export function useQueryNavigate<IQuery extends Record<string, string>>() {
 		});
 	}
 
-	return { navigateWithQuery, query: processedQuery as IQuery };
+	return { navigateWithQuery, query: processedQuery as Partial<IQuery> };
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import FooterBar from '../components/FooterBar/FooterBar';
 import Sticker from '../components/Sticker/Sticker';
 import { useForm } from '@mantine/form';
@@ -18,28 +18,24 @@ import { fetchFunFact } from '../util/funFact';
 
 import { getKeyByValue } from '../util/helpers';
 
-// interface HomePageProps {}
-
 const HomePage: React.FC = () => {
 	// A useMemo that fetches a random fun fact from the internet
 	useEffect(() => {
 		fetchFunFact();
 	}, []);
 
-	const { query, navigateWithQuery } =
-		useQueryNavigate<Partial<QueryState>>();
+	const { query, navigateWithQuery } = useQueryNavigate<QueryState>();
 
-	const targetTimeFromQuery = useMemo(
-		() => query.targetTime,
-		[query.targetTime],
-	);
+	const [defaultTime, setDefaultTime] = useState('');
+
+	useEffect(() => setDefaultTime(query.targetTime ?? ''), [query.targetTime]);
 
 	const presetFromLocation = useMemo<LocationOption>(
 		() =>
 			(getKeyByValue<LocationKey>(
 				locationOptionToScheduleKey,
 				query.from as LocationKey,
-			) as LocationOption) ?? 'Garhoud Tower 2',
+			) as LocationOption) || 'Garhoud Tower 2',
 		[query.from],
 	);
 
@@ -49,7 +45,7 @@ const HomePage: React.FC = () => {
 			to: (presetFromLocation === 'Garhoud Tower 2'
 				? 'Emirates HQ'
 				: 'Garhoud Tower 2') as LocationOption,
-			time: targetTimeFromQuery,
+			time: query.targetTime ?? defaultTime,
 		},
 		validate: {
 			from: (value) => (value ? null : 'From is required'),
@@ -63,6 +59,17 @@ const HomePage: React.FC = () => {
 					: 'Garhoud Tower 2';
 
 			form.setFieldValue('to', computedToValue);
+
+			if (values.from === 'Emirates HQ') {
+				const currTime = new Date().toTimeString().slice(0, 5);
+				// Set time to current time if the user selects Emirates HQ
+				setDefaultTime(currTime);
+				form.setFieldValue('time', currTime);
+			} else {
+				// Reset time to the query if the user selects Garhoud Tower 2
+				setDefaultTime(query.targetTime ?? '');
+				form.setFieldValue('time', query.targetTime ?? '');
+			}
 		},
 	});
 
@@ -70,6 +77,7 @@ const HomePage: React.FC = () => {
 		console.log(values);
 		navigateWithQuery(PAGE_ROUTES.LOADING, {
 			from: locationOptionToScheduleKey[values.from],
+			to: locationOptionToScheduleKey[values.to],
 			targetTime: values.time,
 		});
 	};
@@ -117,7 +125,7 @@ const HomePage: React.FC = () => {
 
 				<TimeSelector
 					label={timeInputLabel}
-					defaultTime={form.values.time}
+					defaultTime={defaultTime}
 					{...form.getInputProps('time')}
 					onSubmit={form.onSubmit(handleSubmit)}
 					error={form.errors.time}

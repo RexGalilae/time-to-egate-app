@@ -23,7 +23,7 @@ const UtyaSticker = () => (
 );
 
 const Loading: React.FC = () => {
-	const { navigateWithQuery } = useQueryNavigate<Partial<QueryState>>();
+	const { navigateWithQuery } = useQueryNavigate<QueryState>();
 
 	const fiftyFifty = useMemo(() => Math.random() < 0.5, []);
 

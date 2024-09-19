@@ -4,6 +4,7 @@ import {
 	timeToMinutes,
 	arrivalIsWithinNMinutesOf,
 	timeDifference,
+	departureIsWithinNMinutesOf,
 } from './time';
 
 const csvPath = '/time-to-egate-app/assets/schedule.csv';
@@ -12,6 +13,9 @@ const csvPath = '/time-to-egate-app/assets/schedule.csv';
  * A function that reads the schedule.csv file, accepts a time and returns data where EGHQ is +- 30 minutes from the time in the form of an array of objects containing the derpature time, arrival time, and the duration.
  *
  * @param {string} time - The time to search for
+ * @param {string} from - The departure location
+ * @param {string} to - The arrival location
+ * @param {boolean} departAt - Whether to search for schedules that depart at the given time
  * @returns {Array<ScheduleWithDelay>} - An array of objects containing the departure time, arrival time, and the duration in minutes.
  *
  * @example
@@ -28,19 +32,23 @@ export const getSchedule = async (
 	time: string,
 	from = '3T-2',
 	to = 'EGHQ',
+	departAt = false,
 ): Promise<ScheduleWithDelay[]> => {
 	const csvData = await fetchCsvData(from, to);
 
-	// Filter bus schedules that are +- 30 minutes from the given time
-	const data = csvData.filter(arrivalIsWithinNMinutesOf(time)).map((row) => {
-		// Calculate the delay considering the cyclical nature of time
-		const delay = timeDifference(time, row.arrival);
+	let data: ScheduleWithDelay[] = [];
 
-		return {
-			...row,
-			delay,
-		};
-	});
+	if (departAt) {
+		// Filter bus schedules that are + 30 minutes from the given time
+		data = csvData
+			.filter(departureIsWithinNMinutesOf(time))
+			.map(calculateDelayFromCurrentTime(time));
+	} else {
+		// Filter bus schedules that are +- 30 minutes from the given time
+		data = csvData
+			.filter(arrivalIsWithinNMinutesOf(time))
+			.map(calculateDelayFromGoalArrivalTime(time));
+	}
 
 	return data;
 };
@@ -116,3 +124,31 @@ export const getPleepTimes = (departureTime: string): IPleepTimes => {
 
 	return pleepTimes;
 };
+
+function calculateDelayFromGoalArrivalTime(
+	time: string,
+): (value: Schedule) => ScheduleWithDelay {
+	return (row) => {
+		// Calculate the delay considering the cyclical nature of time
+		const delay = timeDifference(time, row.arrival);
+
+		return {
+			...row,
+			delay,
+		};
+	};
+}
+
+function calculateDelayFromCurrentTime(
+	time: string,
+): (value: Schedule) => ScheduleWithDelay {
+	return (row) => {
+		// Calculate the delay considering the cyclical nature of time
+		const delay = timeDifference(time, row.departure);
+
+		return {
+			...row,
+			delay,
+		};
+	};
+}

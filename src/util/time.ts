@@ -51,6 +51,33 @@ export const arrivalIsWithinNMinutesOf = (
 };
 
 /**
+ * A function that accepts a time string and returns a function that checks if the given schedule is within 30 minutes of the time.
+ *
+ * @param {string} time - The time to check against.
+ * @param {number} intervalInMinutes - The interval in minutes to check against.
+ * @returns {Function} - A function that accepts a schedule and returns a boolean.
+ */
+export const departureIsWithinNMinutesOf = (
+	time: string,
+	intervalInMinutes: number = 30,
+): ((value: Schedule) => boolean) => {
+	return (schedule) => {
+		const departureTime = timeToMinutes(schedule.departure);
+		const searchTime = timeToMinutes(time);
+
+		const minutesInDay = 1440;
+		const lowerBound = searchTime;
+		const upperBound = (searchTime + intervalInMinutes) % minutesInDay;
+
+		if (lowerBound <= upperBound) {
+			return departureTime >= lowerBound && departureTime <= upperBound;
+		} else {
+			return departureTime >= lowerBound || departureTime <= upperBound;
+		}
+	};
+};
+
+/**
  * Converts time in 24-hour format to 12-hour format.
  *
  * @param {string} time - The time to convert to 12-hour format.

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './Inputs.module.scss';
 
@@ -18,6 +18,10 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({
 	error,
 }) => {
 	const [time, setTime] = useState(defaultTime || '');
+
+	useEffect(() => {
+		setTime(defaultTime);
+	}, [defaultTime]);
 
 	const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setTime(event.target.value);

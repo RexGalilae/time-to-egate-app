@@ -9,8 +9,7 @@ import { getPleepTimes } from '../util/schedule';
 import { PAGE_ROUTES } from '../constants';
 
 const Planner: React.FC = () => {
-	const { query, navigateWithQuery } =
-		useQueryNavigate<Partial<QueryState>>();
+	const { query, navigateWithQuery } = useQueryNavigate<QueryState>();
 
 	// Fetch the selected schedule data from the query
 	const selectedScheduleData = useMemo(() => {
