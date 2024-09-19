@@ -1,5 +1,4 @@
-import { PleepParameterKey } from './../constants';
-import { PLEEP_PARAMETERS_IN_HOURS, PleepParameterKey } from '../constants';
+import { PLEEP_PARAMETERS_IN_HOURS } from '../constants';
 import { IPleepTimes, Schedule, ScheduleWithDelay } from '../interfaces';
 import {
 	timeToMinutes,

@@ -19,7 +19,12 @@ describe('timeToMinutes', () => {
 
 describe('arrivalIsWithinNMinutesOf', () => {
 	it('should check if arrival is within N minutes of given time', () => {
-		const schedule = { arrival: '10:45' };
+		const schedule = {
+			_id: '1',
+			departure: '10:00',
+			arrival: '10:45',
+			duration: 45,
+		};
 		const checkArrival = arrivalIsWithinNMinutesOf('10:30', 30);
 		expect(checkArrival(schedule)).toBe(true);
 
@@ -30,8 +35,13 @@ describe('arrivalIsWithinNMinutesOf', () => {
 
 describe('departureIsWithinNMinutesOf', () => {
 	it('should check if departure is within N minutes of given time', () => {
-		const schedule = { departure: '10:45' };
-		const checkDeparture = departureIsWithinNMinutesOf('10:30', 30);
+		const schedule = {
+			_id: '1',
+			departure: '10:00',
+			arrival: '10:45',
+			duration: 45,
+		};
+		const checkDeparture = departureIsWithinNMinutesOf('9:30', 30);
 		expect(checkDeparture(schedule)).toBe(true);
 
 		const checkDeparture2 = departureIsWithinNMinutesOf('10:30', 10);
