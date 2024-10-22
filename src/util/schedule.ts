@@ -46,9 +46,9 @@ export const getSchedule = async (
 	let data: ScheduleWithDelay[] = [];
 
 	if (departAt) {
-		// Filter bus schedules that are + 30 minutes from the given time
+		// Filter bus schedules that are + 60 minutes from the given time
 		data = csvData
-			.filter(departureIsWithinNMinutesOf(time))
+			.filter(departureIsWithinNMinutesOf(time, 60))
 			.map(calculateDelayFromCurrentTime(time));
 	} else {
 		// Filter bus schedules that are +- 30 minutes from the given time
