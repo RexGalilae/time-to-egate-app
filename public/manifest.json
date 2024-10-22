@@ -1,11 +1,11 @@
 {
 	"name": "Toi Planner",
-	"short_name": "Planner",
+	"short_name": "Toi Planner",
 	"description": "Eet help my toi plan hel day around the eGate fol hel flights",
 	"start_url": "/time-to-egate-app/",
 	"display": "standalone",
 	"background_color": "#ffffff",
-	"theme_color": "#000000",
+	"theme_color": "#0b655a",
 	"icons": [
 		{
 			"src": "/time-to-egate-app/assets/icons/icon-192x192.png",
